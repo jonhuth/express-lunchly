@@ -29,6 +29,23 @@ class Customer {
     return results.rows.map(c => new Customer(c));
   }
 
+  /** find customers based on first name. */
+  /** todo: make case insensitive */
+  static async allFiltered(firstName) {
+    const filteredCustomers = await db.query(
+      `SELECT id, 
+          first_name AS "firstName", 
+          last_name AS "lastName",
+          phone,
+          notes
+        FROM customers
+        WHERE first_name=$1
+        ORDER BY last_name, first_name`,
+      [firstName]
+    );
+    return filteredCustomers.rows.map(c => new Customer(c));
+  }
+
   /** get a customer by ID. */
 
   static async get(id) {
@@ -77,6 +94,12 @@ class Customer {
         [this.firstName, this.lastName, this.phone, this.notes, this.id]
       );
     }
+  }
+
+  // turn first name and last name into full name for a customer instance
+
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
   }
 }
 
