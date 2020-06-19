@@ -22,6 +22,22 @@ router.get("/", async function (req, res, next) {
   }
 });
 
+router.get("/top-ten", async function(req, res, next){
+  try {
+    if (queryStrPresent(req)) {
+      return await renderFilteredCustomers(req, res);
+    }
+    let topTenCustomers = await Reservation.getTopTenByReservations();
+    
+    topTenCustomers = topTenCustomers.map(c => new Customer(c));
+
+    return res.render("customer_list.html", { topTenCustomers });
+  
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /** Form to add a new customer. */
 
 router.get("/add/", async function (req, res, next) {
