@@ -14,6 +14,26 @@ class Customer {
     this.notes = notes;
   }
 
+  /* OUR CODE: */
+  // get notes(){
+  //   return this._notes;
+  // }
+
+  // set notes(val){
+  //   if (!val){
+  //     this._notes= "";
+  //   }
+  // }
+
+  /* FROM SOLUTION */
+  // set notes(val) {
+  //   this._notes = val || "";
+  // }
+
+  // get notes() {
+  //   return this._notes;
+  // }
+
   /** find all customers. */
 
   static async all() {
